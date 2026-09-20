@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System;
 
 namespace Assignment
 {
@@ -186,7 +187,42 @@ namespace Assignment
 
 public int EX01_FindLongestConsecutiveSequence(int[] numbers)
         {
-            return 0;
+            if (numbers == null || numbers.Length == 0)
+            {
+                Debug.Log("The longest consecutive sequence is: 0");
+                return 0;
+            }
+
+            Array.Sort(numbers);
+
+            int currentStreak = 1;
+            int longestStreak = 1;
+
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                if (numbers[i] == numbers[i - 1])
+                {
+                    continue;
+                }
+
+                if (numbers[i] == numbers[i - 1] + 1)
+                {
+                    currentStreak++;
+
+                    if (currentStreak > longestStreak)
+                    {
+                        longestStreak = currentStreak;
+                    }
+                }
+                else
+                {
+                    currentStreak = 1;
+                }
+            }
+
+            Debug.Log("The longest consecutive sequence is: " + longestStreak);
+
+            return longestStreak;
         }
 
         #endregion
